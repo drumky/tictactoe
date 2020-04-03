@@ -72,3 +72,17 @@ const disableEventListener = () =>
   box().forEach(_bEl => _bEl.removeEventListener("click", clickFn));
 
 enableEventListener();
+
+function resetGame() {
+  window.location.reload();
+}
+
+const reset = document
+  .querySelector("#reset-btn")
+  .addEventListener("click", resetGame);
+
+// game.addEventListener("mousedown", function(e) {
+//     if (e.target.className === "play-again") {
+//       window.location.reload();
+//     }
+//   });
