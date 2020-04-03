@@ -28,7 +28,8 @@ const allSame = arr =>
   );
 
 const takeTurn = (index, letter) => (box()[index].innerText = letter);
-const opponentChoice = () => 0;
+const opponentChoice = () =>
+  bNumberId(emptyBoxes()[Math.floor(Math.random() * emptyBoxes().length)]);
 
 const opponentTurn = () => {
   disableEventListener();
