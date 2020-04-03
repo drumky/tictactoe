@@ -29,19 +29,39 @@ const allSame = arr =>
 
 const takeTurn = (index, letter) => (box()[index].innerText = letter);
 const opponentChoice = () =>
+  // Computer to input at random boxes
   bNumberId(emptyBoxes()[Math.floor(Math.random() * emptyBoxes().length)]);
+
+const endGame = winningSequence => {
+  winningSequence.forEach(_bEl => _bEl.classList.add("winner"));
+  disableEventListener();
+};
+const checkForVictory = () => {
+  let victory = false;
+
+  winningCombos.forEach(_c => {
+    const _box = box();
+    const sequence = [_box[_c[0]], _box[_c[1]], _box[_c[2]]];
+    if (allSame(sequence)) {
+      victory = true;
+      endGame(sequence);
+    }
+  });
+
+  return victory;
+};
 
 const opponentTurn = () => {
   disableEventListener();
   setTimeout(() => {
     takeTurn(opponentChoice(), "o");
-    enableEventListener();
+    if (!checkForVictory()) enableEventListener();
   }, 2000);
 };
 
 const clickFn = $event => {
   takeTurn(bNumberId($event.target), "x");
-  opponentTurn();
+  if (!checkForVictory()) opponentTurn();
 
   console.log($event.target);
 };
